@@ -9,9 +9,9 @@ const HeaderItem = ({ links }: { links: { href: string, label: string, icon?: st
     return (
         <>
             {links.map(({ href, label, icon, iconWidth, iconHeight }) => (
-                <Link key={href} href={href} className={clsx('bg-tertiary p-2 rounded-full transition-all duration-300', {
+                <Link key={href} href={href} className={clsx('p-2 rounded-full transition-all duration-300', {
                     'bg-[#CCBF9D]': currentPath === href,
-                    'hover:bg-tertiary/85': currentPath !== href
+                    'hover:bg-tertiary/85 bg-tertiary': currentPath !== href
                 })}>
                     {icon ? (
                         <Image src={icon} alt={label} width={iconWidth} height={iconHeight} />

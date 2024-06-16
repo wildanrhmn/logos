@@ -9,7 +9,7 @@ export default function StoreLayout({
     return (
         <div>
             <Header />
-            <main>{children}</main>
+            <main className="py-10">{children}</main>
         </div>
     );
 }
