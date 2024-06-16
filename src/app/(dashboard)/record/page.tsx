@@ -1,13 +1,7 @@
-export const metadata = {
-    title: "Record",
-    description:
-        "Logos - Record",
-};
-
 export default function Record() {
     return (
-        <div>
-            <h1>Record</h1>
+        <div className="mx-[3%] w-full h-full flex items-center justify-center">
+            <h1 className="text-2xl font-bold">TODO</h1>
         </div>
     )
 }

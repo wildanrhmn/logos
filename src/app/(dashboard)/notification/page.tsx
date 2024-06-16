@@ -1,13 +1,7 @@
-export const metadata = {
-    title: "Notification",
-    description:
-        "Logos - Notification",
-};
-
 export default function Notification() {
     return (
-        <div>
-            <h1>Notification</h1>
+        <div className="mx-[3%] w-full h-full flex items-center justify-center">
+            <h1 className="text-2xl font-bold">TODO</h1>
         </div>
     )
 }
