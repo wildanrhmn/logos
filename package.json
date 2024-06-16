@@ -19,6 +19,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.52.0",
     "react-hot-toast": "^2.4.1",
+    "sharp": "^0.33.4",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

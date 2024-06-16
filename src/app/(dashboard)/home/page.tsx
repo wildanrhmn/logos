@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from "react";
 import TenderTable from "@/components/TenderTable";
 import placeholderData from "@/utils/placeholder-data.json";
 import Pagination from "@/components/Pagination";
@@ -9,6 +10,15 @@ export default function HomePage() {
     //Dummy Data Pagination Implementation
     const itemsPerPage = 10;
     const totalPages = Math.ceil(placeholderData.length / itemsPerPage);
+
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <SearchContent itemsPerPage={itemsPerPage} totalPages={totalPages} />
+        </Suspense>
+    );
+}
+
+function SearchContent({ itemsPerPage, totalPages }: { itemsPerPage: number; totalPages: number }) {
     const searchParams = useSearchParams();
     const currentPage = Number(searchParams.get("page")) || 1;
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -23,5 +33,5 @@ export default function HomePage() {
                 <Pagination totalPages={totalPages} />
             </div>
         </div>
-    )
+    );
 }
