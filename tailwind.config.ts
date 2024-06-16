@@ -11,6 +11,16 @@ const config: Config = {
       colors: {
         primary: '#ABBC86',
         secondary: '#467048',
+        tertiary: '#FFB71D',
+        logo: '#2EC76F',
+        border: {
+          DEFAULT: '#D9D9D9',
+          dark: '#9D9D9D',
+          light: '#EEEEEE',
+        }
+      },
+      boxShadow: {
+        'loginform': '5px 8px 4px 0px #00000066'
       }
     },
   },

@@ -1,1 +1,1 @@
-export default function Home() {return (<></>);}
+export default function Page() {return (<></>);}
