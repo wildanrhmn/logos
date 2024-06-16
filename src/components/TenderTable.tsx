@@ -83,7 +83,7 @@ export default TenderTable;
 
 function DataWithPopOver({ value }: { value: string }) {
     return (
-        <>
+        <div className="flex justify-between w-full gap-2">
             <p className="text-sm whitespace-nowrap overflow-hidden text-ellipsis max-w-[350px]">
                 {value}
             </p>
@@ -103,6 +103,6 @@ function DataWithPopOver({ value }: { value: string }) {
                     </p>
                 </PopoverContent>
             </Popover>
-        </>
+        </div>
     );
 }
