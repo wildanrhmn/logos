@@ -6,7 +6,6 @@ const Header = () => {
         { href: '/home', label: 'Home' },
         { href: '/archive', label: 'Archive' },
         { href: '/record', label: 'Record' },
-        { href: '/notification', label: 'Notification' }
     ];
     return (
         <nav className='bg-secondary w-full py-4'>

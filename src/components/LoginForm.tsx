@@ -30,6 +30,7 @@ const LoginForm = () => {
                             email: "john.doe@example.com",
                             role: "admin",
                             archivedTenders: [],
+                            recordedTenders: []
                         });
                         resolve("Login successful");
                     } else {

@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@iconify/react": "^5.0.1",
+    "@mui/material": "^5.15.20",
+    "@nextui-org/dropdown": "^2.1.26",
     "@nextui-org/popover": "^2.1.24",
-    "@nextui-org/scroll-shadow": "^2.1.17",
     "clsx": "^2.1.1",
     "next": "14.2.4",
     "next-nprogress-bar": "^2.3.12",

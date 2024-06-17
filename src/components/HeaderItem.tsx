@@ -3,8 +3,10 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import useNotificationStore from "@/stores/notification";
 
 const HeaderItem = ({ links }: { links: { href: string, label: string, icon?: string, iconWidth?: number, iconHeight?: number }[] }) => {
+    const { isOpen, setIsOpen } = useNotificationStore();
     const currentPath = usePathname();
     return (
         <>
@@ -20,6 +22,10 @@ const HeaderItem = ({ links }: { links: { href: string, label: string, icon?: st
                     )}
                 </Link>
             ))}
+            <div onClick={() => setIsOpen(!isOpen)} className={clsx("py-2.5 transition-all duration-300 px-12 rounded-3xl font-semibold text-sm sm:text-md cursor-pointer", {
+                'bg-[#CCBF9D]': isOpen,
+                'hover:bg-tertiary/85 bg-tertiary': !isOpen
+            })}>Notifications</div>
         </>
     )
 }

@@ -1,7 +1,14 @@
-export default function Record() {
+import TenderTable from "@/components/TenderTable"
+
+export default function RecordPage() {
     return (
-        <div className="mx-[3%] w-full h-full flex items-center justify-center">
-            <h1 className="text-2xl font-bold">TODO</h1>
+        <div className="mx-[3%]">
+            <div className="w-full rounded-md overflow-x-scroll">
+                <TenderTable  />
+            </div>
+            <div className="flex items-center justify-center mt-5">
+                {/* <Pagination totalPages={20} /> */}
+            </div>
         </div>
     )
 }

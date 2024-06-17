@@ -40,3 +40,9 @@ table tbody tr:nth-child(odd) {
 table tbody tr:nth-child(even) {
     background: #F5F5F5;
 }
+
+.MuiDrawer-paper{
+    background-color: transparent !important;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}

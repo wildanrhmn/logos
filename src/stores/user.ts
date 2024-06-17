@@ -7,6 +7,8 @@ interface UserState {
     setUser: (user: IUser) => void;
     archiveTender: (tender: ITender) => void;
     unarchiveTender: (tender: ITender) => void;
+    recordTender: (tender: ITender) => void;
+    unrecordTender: (tender: ITender) => void;
 }
 
 const useUserStore = create<UserState>((set, get) => ({
@@ -23,6 +25,20 @@ const useUserStore = create<UserState>((set, get) => ({
         const user = get().user;
         if (user) {
             user.archivedTenders = user.archivedTenders.filter((t) => t.kode_tender !== tender.kode_tender);
+            set({ user });
+        }
+    },
+    recordTender: (tender: ITender) => {
+        const user = get().user;
+        if (user) {
+            user.recordedTenders.push(tender);
+            set({ user });
+        }
+    },
+    unrecordTender: (tender: ITender) => {
+        const user = get().user;
+        if (user) {
+            user.recordedTenders = user.recordedTenders.filter((t) => t.kode_tender !== tender.kode_tender);
             set({ user });
         }
     }

@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import useUserStore from "@/stores/user";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
+import NotificationDrawer from "@/components/NotificationDrawer";
 
 export default function DashboardLayout({
     children,
@@ -19,6 +20,7 @@ export default function DashboardLayout({
     return (
         <div>
             <Header />
+            <NotificationDrawer />
             <main className="pt-10 pb-28">{children}</main>
         </div>
     );

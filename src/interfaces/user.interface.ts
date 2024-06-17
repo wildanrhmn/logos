@@ -7,4 +7,5 @@ export interface IUser {
     email: string;
     role: string;
     archivedTenders: ITender[];
+    recordedTenders: ITender[];
 } 
