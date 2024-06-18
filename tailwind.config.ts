@@ -1,3 +1,5 @@
+/** @format */
+
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -9,19 +11,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#ABBC86',
-        secondary: '#467048',
-        tertiary: '#FFB71D',
-        logo: '#2EC76F',
+        primary: "#ABBC86",
+        secondary: "#467048",
+        tertiary: "#FFB71D",
+        grey: "#D9D9D9",
+        logo: "#2EC76F",
         border: {
-          DEFAULT: '#D9D9D9',
-          dark: '#9D9D9D',
-          light: '#EEEEEE',
-        }
+          DEFAULT: "#D9D9D9",
+          dark: "#9D9D9D",
+          light: "#EEEEEE",
+        },
       },
       boxShadow: {
-        'loginform': '5px 8px 4px 0px #00000066'
-      }
+        loginform: "5px 8px 4px 0px #00000066",
+      },
     },
   },
   plugins: [],

@@ -1,54 +1,54 @@
 [
-    {
-        "notification_id": "1",
-        "tender": {
-            "tender_code": "89739064",
-            "tender_name": "Pembangunan Tangki Septik dan Sarana Pendukung Kabupaten Bulungan",
-            "tender_status": "Pengumuman Pemenang",
-            "tender_status_new": "Masa Sanggah"
-        },
-        "description": "Status Diperbarui",
-        "date": "2024-06-16",
-        "time": "12:00 PM",
-        "read": false
+  {
+    "notification_id": "1",
+    "tender": {
+      "tender_code": "89739074",
+      "tender_name": "Pembangunan Tangki Septik dan Sarana Pendukung Kabupaten Bulungan",
+      "tender_status": "Pengumuman Pemenang",
+      "tender_status_new": "Masa Sanggah"
     },
-    {
-        "notification_id": "2",
-        "tender": {
-            "tender_code": "89739064",
-            "tender_name": "Pembangunan Rumah Susun dan Rumah Khusus ASN Pemprov Papua Selatan",
-            "tender_status": "Pengumuman Pemenang",
-            "tender_status_new": "Masa Sanggah"
-        },
-        "description": "Status Diperbarui",
-        "date": "2024-06-16",
-        "time": "12:00 PM",
-        "read": false
+    "description": "Status Diperbarui",
+    "date": "2024-07-16",
+    "time": "12:00 PM",
+    "read": false
+  },
+  {
+    "notification_id": "2",
+    "tender": {
+      "tender_code": "89739074",
+      "tender_name": "Pembangunan Rumah Susun dan Rumah Khusus ASN Pemprov Papua Selatan",
+      "tender_status": "Pengumuman Pemenang",
+      "tender_status_new": "Masa Sanggah"
     },
-    {
-        "notification_id": "3",
-        "tender": {
-            "tender_code": "89739064",
-            "tender_name": "Pembangunan Rumah Susun Daerah Otonomi Baru (DOB) Papua Barat Daya",
-            "tender_status": "Pemberian Penjelasan",
-            "tender_status_new": "Masa Sanggah"
-        },
-        "description": "Status Diperbarui",
-        "date": "2024-06-16",
-        "time": "12:00 PM",
-        "read": false
+    "description": "Status Diperbarui",
+    "date": "2024-07-16",
+    "time": "12:00 PM",
+    "read": false
+  },
+  {
+    "notification_id": "3",
+    "tender": {
+      "tender_code": "89739074",
+      "tender_name": "Pembangunan Rumah Susun Daerah Otonomi Baru (DOB) Papua Barat Daya",
+      "tender_status": "Pemberian Penjelasan",
+      "tender_status_new": "Masa Sanggah"
     },
-    {
-        "notification_id": "4",
-        "tender": {
-            "tender_code": "89739064",
-            "tender_name": "Pengelolaan Rusun ASN PUPR Pasar Jumat dan Rempoa",
-            "tender_status": "Penandatanganan Kontrak",
-            "tender_status_new": "Masa Sanggah"
-        },
-        "description": "Status Diperbarui",
-        "date": "2024-06-16",
-        "time": "12:00 PM",
-        "read": true
-    }
+    "description": "Status Diperbarui",
+    "date": "2024-07-16",
+    "time": "12:00 PM",
+    "read": false
+  },
+  {
+    "notification_id": "4",
+    "tender": {
+      "tender_code": "89739074",
+      "tender_name": "Pengelolaan Rusun ASN PUPR Pasar Jumat dan Rempoa",
+      "tender_status": "Penandatanganan Kontrak",
+      "tender_status_new": "Masa Sanggah"
+    },
+    "description": "Status Diperbarui",
+    "date": "2024-07-16",
+    "time": "12:00 PM",
+    "read": true
+  }
 ]
