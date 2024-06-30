@@ -4,6 +4,7 @@ import { authConfig } from "./auth.config";
 import User from "../lib/models/user-model";
 import bcrypt from "bcrypt";
 import { env } from "../lib/env";
+import dbConnect from "@/lib/mongo";
 
 export const {
   handlers: { GET, POST },
@@ -19,6 +20,7 @@ export const {
           username: string;
           password: string;
         };
+        await dbConnect();
         if (credentials === null) return null;
         const user = await User.findOne({
           username: username,

@@ -1,4 +1,6 @@
 import zod from "zod";
+import dotenv from "dotenv";
+dotenv.config();
 
 const envSchema = zod.object({
   MONGO_URI: zod.string().min(1),

@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
-import { env } from "./env";
 
-export async function dbConnect() {
-  try {
-    let conn = await mongoose.connect(String(env.MONGO_URI));
-    return conn;
-  } catch (e: any) {
-    throw new Error(e);
-  }
+const connection: { isConnected?:number } = {};
+
+async function dbConnect() {
+  if(connection.isConnected) return;
+
+  const db = await mongoose.connect(process.env.MONGO_URI!);
+
+  connection.isConnected = db.connections[0].readyState;
 }
+
+export default dbConnect;
