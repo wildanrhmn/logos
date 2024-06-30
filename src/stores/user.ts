@@ -1,44 +1,46 @@
 import { IUser } from "@/interfaces/user.interface";
-import { ITender } from "@/interfaces/tender.interface";
 import { create } from "zustand";
 
 interface UserState {
     user: IUser | null;
     setUser: (user: IUser) => void;
-    archiveTender: (tender: ITender) => void;
-    unarchiveTender: (tender: ITender) => void;
-    recordTender: (tender: ITender) => void;
-    unrecordTender: (tender: ITender) => void;
+    archiveTender: (kode_tender: string) => void;
+    unarchiveTender: (kode_tender: string) => void;
+    recordTender: (kode_tender: string) => void;
+    unrecordTender: (kode_tender: string) => void;
 }
 
 const useUserStore = create<UserState>((set, get) => ({
     user: null,
     setUser: (user: IUser) => set({ user }),
-    archiveTender: (tender: ITender) => {
+    archiveTender: (kode_tender: string) => {
         const user = get().user;
         if (user) {
-            user.archivedTenders.push(tender);
+            const tender = user.recordedTenders.find(t => t === kode_tender);
+            if (tender) {
+                user.archivedTenders.push(kode_tender);
+                set({ user });
+            }
+        }
+    },
+    unarchiveTender: (kode_tender: string) => {
+        const user = get().user;
+        if (user) {
+            user.archivedTenders = user.archivedTenders.filter((t) => t !== kode_tender);
             set({ user });
         }
     },
-    unarchiveTender: (tender: ITender) => {
+    recordTender: (kode_tender: string) => {
         const user = get().user;
         if (user) {
-            user.archivedTenders = user.archivedTenders.filter((t) => t.kode_tender !== tender.kode_tender);
+            user.recordedTenders.push(kode_tender);
             set({ user });
         }
     },
-    recordTender: (tender: ITender) => {
+    unrecordTender: (kode_tender: string) => {
         const user = get().user;
         if (user) {
-            user.recordedTenders.push(tender);
-            set({ user });
-        }
-    },
-    unrecordTender: (tender: ITender) => {
-        const user = get().user;
-        if (user) {
-            user.recordedTenders = user.recordedTenders.filter((t) => t.kode_tender !== tender.kode_tender);
+            user.recordedTenders = user.recordedTenders.filter((t) => t !== kode_tender);
             set({ user });
         }
     }

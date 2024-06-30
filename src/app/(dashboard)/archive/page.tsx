@@ -1,16 +1,10 @@
-/** @format */
+import TenderArchiveTable from "@/components/TenderArchiveTable";
 
-import TenderTable from "@/components/TenderTable";
-
-export default function ArchivePage() {
+export default async function ArchivePage() {
   return (
-    // <div className="mx-[3%]">
     <div>
-      <div className="w-full rounded-md overflow-x-scroll">
-        <TenderTable />
-      </div>
-      <div className="flex items-center justify-center mt-5">
-        {/* <Pagination totalPages={20} /> */}
+      <div className="w-full rounded-md overflow-x-scroll lg:overflow-x-auto">
+          <TenderArchiveTable />
       </div>
     </div>
   );

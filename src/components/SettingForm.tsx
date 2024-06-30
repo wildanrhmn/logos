@@ -48,10 +48,24 @@ export default function SettingForm() {
             variant="select"
             data={{
               options: [
-                "Kementrian Agama",
-                "Kementrian Kelautan dan Perikanan",
-                "Kementrian PUPR ",
-                "Kementrian Keuangan ",
+                "Kementerian Agama",
+                "Kementerian Pendidikan Kebudayaan Riset dan Teknologi",
+                "Kementerian Kesehatan",
+                "Kementerian Kelautan Dan Perikanan",
+                "Kementerian Pekerjaan Umum dan Perumahan Rakyat",
+                "Kementrian Keuangan",
+                "Provinsi DKI Jakarta",
+                "Provinsi Banten",
+                "Provinsi Jawa Tengah",
+                "Provinsi Jawa Barat",
+                "Provinsi Jawa Timur",
+                "Provinsi DI Yogyakarta",
+                "Kota Tangerang",
+                "Kab. Tangerang",
+                "Kota Tangerang Selatan",
+                "Kota Depok",
+                "Kota Bekasi",
+                "Kab. Bekasi",
               ],
               type: "penyelenggara_proyek",
             }}
@@ -77,7 +91,16 @@ export default function SettingForm() {
             setData={setData}
             variant="select"
             data={{
-              options: ["Pengadaan", "Konstruksi", "Jasa Konsultasi"],
+              options: [
+                "Pengadaan Barang",
+                "Jasa Konsultansi Badan Usaha Non Konstruksi",
+                "Pekerjaan Konstruksi",
+                "Jasa Konsultansi Perorangan Non Konstruksi",
+                "Jasa Konsultansi Badan Usaha Konstruksi",
+                "Jasa Konsultansi Perorangan Konstruksi",
+                "Pekerjaan Konstruksi Terintegrasi",
+                "Jasa Lainnya",
+              ],
               type: "jenis_proyek",
             }}
           />
@@ -96,7 +119,7 @@ export default function SettingForm() {
             ))}
           </p>
         </li>
-        <li>
+        {/* <li>
           <h2 className="font-bold mb-2">Lokasi Proyek</h2>
           <InputComp
             setData={setData}
@@ -120,7 +143,7 @@ export default function SettingForm() {
               </>
             ))}
           </p>
-        </li>
+        </li> */}
         <li>
           <h2 className="font-bold mb-2">Nilai Proyek</h2>
           <InputComp
