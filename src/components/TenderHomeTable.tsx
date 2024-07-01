@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import useSWR from "swr";
@@ -21,21 +23,26 @@ export default function TenderHomeTable() {
 
   async function handleArchive(kode_tender: string) {
     toast.promise(
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/archive/${user?.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            archives: [...(user?.archivedTenders ?? []), kode_tender],
-          }),
-        }
-      ).then(async (response) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/archive/${user?.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          archives: [...(user?.archivedTenders ?? []), kode_tender],
+        }),
+      }).then(async (response) => {
         if (response.ok && user?.id) {
-          setUser({ ...user, archivedTenders: [...(user?.archivedTenders ?? []), kode_tender] });
-          update({ user: { ...user, archivedTenders: [...(user?.archivedTenders ?? []), kode_tender] } });
+          setUser({
+            ...user,
+            archivedTenders: [...(user?.archivedTenders ?? []), kode_tender],
+          });
+          update({
+            user: {
+              ...user,
+              archivedTenders: [...(user?.archivedTenders ?? []), kode_tender],
+            },
+          });
         }
       }),
       {
@@ -92,7 +99,11 @@ export default function TenderHomeTable() {
                 <td>{tender.nilai_hps_paket}</td>
                 <td>
                   <svg
-                    fill={user?.archivedTenders.includes(tender.kode_tender) ? "#777777" : "none"}
+                    fill={
+                      user?.archivedTenders.includes(tender.kode_tender)
+                        ? "#777777"
+                        : "none"
+                    }
                     className="cursor-pointer"
                     width="25px"
                     height="25px"

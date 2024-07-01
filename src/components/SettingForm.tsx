@@ -4,37 +4,95 @@
 import { useEffect, useState } from "react";
 import InputComp from "./InputComp";
 import EditableItem from "./EditableItem";
+import useUserStore from "@/stores/user";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 import dummy from "@/utils/setting-dummy.json";
 
+interface Config {
+  penyelenggara_proyek: string[];
+  jenis_proyek: string[];
+  nilai_proyek: Number;
+  hbu: null;
+  kbli: null;
+}
+
 export default function SettingForm() {
-  const [setting, setSetting] = useState<{ [key: string]: string }>(dummy);
+  const { update } = useSession();
+  const { user } = useUserStore((state) => ({
+    user: state.user,
+  }));
+
+  const [setting, setSetting] = useState<Config>(dummy);
+  const [instansi, setInstansi] = useState(["Provinsi DKI Jakarta"]);
 
   useEffect(() => {
     const getSetting = () => {
-      setSetting(dummy);
+      if (user) {
+        setSetting(user?.config);
+      }
+    };
+
+    const getInstansi = () => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/scrape/instansi`, {
+        method: "GET",
+      }).then(async (response) => {
+        const { data } = await response.json();
+        setInstansi(data);
+      });
     };
 
     getSetting();
-  }, []);
+    getInstansi();
+  }, [user]);
 
-  function setData(inputData: string, typeData: string, isArray: boolean) {
+  function setData(
+    inputData: string,
+    typeData: keyof Config,
+    isArray: boolean
+  ) {
     if (isArray) {
-      const arrData = setting[typeData].split(",") || [];
+      const arrData = setting[typeData] as string[];
 
       arrData.push(inputData);
-      setSetting({ ...setting, [typeData]: arrData.join() });
+      setSetting({ ...setting, [typeData]: arrData });
     } else {
       setSetting({ ...setting, [typeData]: inputData });
     }
   }
 
-  function removeData(inputData: string, typeData: string) {
-    const tempArr = setting[typeData].split(",") || [];
+  function removeData(inputData: string, typeData: keyof Config) {
+    const tempArr = setting[typeData] as string[];
     const indexValue = tempArr.indexOf(inputData);
 
     tempArr.splice(indexValue, 1);
-    setSetting({ ...setting, [typeData]: tempArr.join() });
+    setSetting({ ...setting, [typeData]: tempArr });
+  }
+
+  function updateConfig() {
+    toast.promise(
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/config/${user?.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(setting),
+      }).then(async (response) => {
+        const data = await response.json();
+        update({
+          user: {
+            ...user,
+            config: data.config,
+          },
+        });
+      }),
+      {
+        loading: "Memperbarui config...",
+        success: "Config berhasil diperbarui",
+        error: "Gagal memperbarui config",
+      }
+    );
   }
 
   return (
@@ -47,31 +105,12 @@ export default function SettingForm() {
             setData={setData}
             variant="select"
             data={{
-              options: [
-                "Kementerian Agama",
-                "Kementerian Pendidikan Kebudayaan Riset dan Teknologi",
-                "Kementerian Kesehatan",
-                "Kementerian Kelautan Dan Perikanan",
-                "Kementerian Pekerjaan Umum dan Perumahan Rakyat",
-                "Kementrian Keuangan",
-                "Provinsi DKI Jakarta",
-                "Provinsi Banten",
-                "Provinsi Jawa Tengah",
-                "Provinsi Jawa Barat",
-                "Provinsi Jawa Timur",
-                "Provinsi DI Yogyakarta",
-                "Kota Tangerang",
-                "Kab. Tangerang",
-                "Kota Tangerang Selatan",
-                "Kota Depok",
-                "Kota Bekasi",
-                "Kab. Bekasi",
-              ],
+              options: instansi,
               type: "penyelenggara_proyek",
             }}
           />
           <p className="flex w-full py-2 gap-2">
-            {setting.penyelenggara_proyek.split(",").map((each, index) => (
+            {setting.penyelenggara_proyek.map((each, index) => (
               <>
                 {each !== "" ? (
                   <EditableItem
@@ -105,7 +144,7 @@ export default function SettingForm() {
             }}
           />
           <p className="flex w-full py-2 gap-2">
-            {setting.jenis_proyek.split(",").map((each, index) => (
+            {setting.jenis_proyek.map((each, index) => (
               <>
                 {each !== "" ? (
                   <EditableItem
@@ -119,31 +158,6 @@ export default function SettingForm() {
             ))}
           </p>
         </li>
-        {/* <li>
-          <h2 className="font-bold mb-2">Lokasi Proyek</h2>
-          <InputComp
-            setData={setData}
-            variant="select"
-            data={{
-              options: ["DKI Jakarta", "Banten", "Jawa Barat", "Jawa Tengah"],
-              type: "lokasi_proyek",
-            }}
-          />
-          <p className="flex w-full py-2 gap-2">
-            {setting.lokasi_proyek.split(",").map((each, index) => (
-              <>
-                {each !== "" ? (
-                  <EditableItem
-                    type="lokasi_proyek"
-                    data={each}
-                    key={index}
-                    removeData={removeData}
-                  />
-                ) : null}
-              </>
-            ))}
-          </p>
-        </li> */}
         <li>
           <h2 className="font-bold mb-2">Nilai Proyek</h2>
           <InputComp
@@ -169,7 +183,10 @@ export default function SettingForm() {
           />
         </li>
         <li>
-          <button className="px-4 py-2 rounded-full bg-tertiary flex gap-2">
+          <button
+            className="px-4 py-2 rounded-full bg-tertiary flex gap-2"
+            onClick={() => updateConfig()}
+          >
             Save
           </button>
         </li>

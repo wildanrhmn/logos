@@ -1,8 +1,7 @@
 {
-  "penyelenggara_proyek": "Kementrian Agama, Kementrian Keuangan",
-  "jenis_proyek": "Pengadaan",
-  "lokasi_proyek": "Jawa Tengah",
-  "nilai_proyek": "15000000000",
-  "hbu": "",
-  "kbli": ""
+  "penyelenggara_proyek": ["Kementrian Agama", "Kementrian Keuangan"],
+  "jenis_proyek": ["Jasa Konsultansi Badan Usaha Non Konstruksi"],
+  "nilai_proyek": 15000000000,
+  "hbu": null,
+  "kbli": null
 }
