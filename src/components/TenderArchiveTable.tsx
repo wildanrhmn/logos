@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import useSWR from "swr";
@@ -21,21 +23,21 @@ export default function TenderArchiveTable() {
   );
 
   async function handleUnarchive(kode_tender: string) {
-    const updatedArchives = user?.archivedTenders.filter((tender: string) => tender !== kode_tender) ?? [];
-    
+    const updatedArchives =
+      user?.archivedTenders.filter(
+        (tender: string) => tender !== kode_tender
+      ) ?? [];
+
     toast.promise(
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/archive/${user?.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            archives: updatedArchives,
-          }),
-        }
-      ).then(async (response) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/archive/${user?.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          archives: updatedArchives,
+        }),
+      }).then(async (response) => {
         if (response.ok && user?.id) {
           setUser({ ...user, archivedTenders: updatedArchives });
           update({ user: { ...user, archivedTenders: updatedArchives } });
@@ -51,21 +53,26 @@ export default function TenderArchiveTable() {
 
   async function handleRecord(kode_tender: string) {
     toast.promise(
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/record/${user?.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            records: [...(user?.recordedTenders ?? []), kode_tender],
-          }),
-        }
-      ).then(async (response) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/record/${user?.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          records: [...(user?.recordedTenders ?? []), kode_tender],
+        }),
+      }).then(async (response) => {
         if (response.ok && user?.id) {
-          setUser({ ...user, recordedTenders: [...(user?.recordedTenders ?? []), kode_tender] });
-          update({ user: { ...user, recordedTenders: [...(user?.recordedTenders ?? []), kode_tender] } });
+          setUser({
+            ...user,
+            recordedTenders: [...(user?.recordedTenders ?? []), kode_tender],
+          });
+          update({
+            user: {
+              ...user,
+              recordedTenders: [...(user?.recordedTenders ?? []), kode_tender],
+            },
+          });
         }
       }),
       {
@@ -95,8 +102,11 @@ export default function TenderArchiveTable() {
       </thead>
       <tbody>
         {data &&
-          data.archives
-          .filter((tender: any) => !user?.recordedTenders.includes(tender.kode_tender))
+          data?.archives
+            ?.filter(
+              (tender: any) =>
+                !user?.recordedTenders.includes(tender.kode_tender)
+            )
             .map((tender: any, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
@@ -119,7 +129,11 @@ export default function TenderArchiveTable() {
                 <td>{tender.nilai_hps_paket}</td>
                 <td className="flex gap-2">
                   <svg
-                    fill={user?.archivedTenders.includes(tender.kode_tender) ? "#777777" : "none"}
+                    fill={
+                      user?.archivedTenders.includes(tender.kode_tender)
+                        ? "#777777"
+                        : "none"
+                    }
                     className="cursor-pointer"
                     width="25px"
                     height="25px"
@@ -136,29 +150,41 @@ export default function TenderArchiveTable() {
                     ></path>
                   </svg>
                   <svg
-                  fill={user?.recordedTenders.includes(tender.kode_tender) ? "#3CDB7F" : "none"}
-                  className="cursor-pointer"
-                  width="25px"
-                  height="25px"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  onClick={() => handleRecord(tender.kode_tender)}
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke={user?.recordedTenders.includes(tender.kode_tender) ? "#3CDB7F" : "#777"}
-                    strokeWidth="1.5"
-                  ></circle>
-                  <path
-                    d="M8.5 12.5L10.5 14.5L15.5 9.5"
-                    stroke={user?.recordedTenders.includes(tender.kode_tender) ? "#FFFFFF" : "#777"}
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></path>
-                </svg>
+                    fill={
+                      user?.recordedTenders.includes(tender.kode_tender)
+                        ? "#3CDB7F"
+                        : "none"
+                    }
+                    className="cursor-pointer"
+                    width="25px"
+                    height="25px"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={() => handleRecord(tender.kode_tender)}
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke={
+                        user?.recordedTenders.includes(tender.kode_tender)
+                          ? "#3CDB7F"
+                          : "#777"
+                      }
+                      strokeWidth="1.5"
+                    ></circle>
+                    <path
+                      d="M8.5 12.5L10.5 14.5L15.5 9.5"
+                      stroke={
+                        user?.recordedTenders.includes(tender.kode_tender)
+                          ? "#FFFFFF"
+                          : "#777"
+                      }
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
                 </td>
               </tr>
             ))}

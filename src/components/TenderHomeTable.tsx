@@ -72,8 +72,8 @@ export default function TenderHomeTable() {
       </thead>
       <tbody>
         {tenders &&
-          tenders.data
-            .filter(
+          tenders?.data
+            ?.filter(
               (tender: any) =>
                 !user?.archivedTenders.includes(tender.kode_tender)
             )

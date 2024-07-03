@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import useSWR from "swr";
@@ -21,21 +23,21 @@ export default function TenderRecordTable() {
   );
 
   async function handleUnrecord(kode_tender: string) {
-    const updatedRecords = user?.recordedTenders.filter((tender: string) => tender !== kode_tender) ?? [];
-    
+    const updatedRecords =
+      user?.recordedTenders?.filter(
+        (tender: string) => tender !== kode_tender
+      ) ?? [];
+
     toast.promise(
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/record/${user?.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            records: updatedRecords,
-          }),
-        }
-      ).then(async (response) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/record/${user?.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          records: updatedRecords,
+        }),
+      }).then(async (response) => {
         if (response.ok && user?.id) {
           setUser({ ...user, recordedTenders: updatedRecords });
           update({ user: { ...user, recordedTenders: updatedRecords } });
@@ -68,30 +70,33 @@ export default function TenderRecordTable() {
       </thead>
       <tbody>
         {data &&
-          data.records
-            .map((tender: any, index: number) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td className="whitespace-normal text-left">
-                  {tender.nama_tender}
-                </td>
-                <td>{tender.instansi}</td>
-                <td>{tender.kode_kbli === "N/A" ? "n/a" : tender.kode_kbli}</td>
-                <td>{tender.kode_sbu === "N/A" ? "n/a" : tender.kode_sbu}</td>
-                <td className="whitespace-normal text-left">
-                  {tender.lokasi_pengerjaan}
-                </td>
-                <td>
-                  {
-                    tender.tahapan_tender.find(
-                      (tahap: any) => tahap.tahap === "Pembuktian Kualifikasi"
-                    )?.sampai
+          data.records.map((tender: any, index: number) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td className="whitespace-normal text-left">
+                {tender.nama_tender}
+              </td>
+              <td>{tender.instansi}</td>
+              <td>{tender.kode_kbli === "N/A" ? "n/a" : tender.kode_kbli}</td>
+              <td>{tender.kode_sbu === "N/A" ? "n/a" : tender.kode_sbu}</td>
+              <td className="whitespace-normal text-left">
+                {tender.lokasi_pengerjaan}
+              </td>
+              <td>
+                {
+                  tender.tahapan_tender.find(
+                    (tahap: any) => tahap.tahap === "Pembuktian Kualifikasi"
+                  )?.sampai
+                }
+              </td>
+              <td>{tender.nilai_hps_paket}</td>
+              <td>
+                <svg
+                  fill={
+                    user?.recordedTenders.includes(tender.kode_tender)
+                      ? "#3CDB7F"
+                      : "none"
                   }
-                </td>
-                <td>{tender.nilai_hps_paket}</td>
-                <td>
-                  <svg
-                  fill={user?.recordedTenders.includes(tender.kode_tender) ? "#3CDB7F" : "none"}
                   className="cursor-pointer"
                   width="25px"
                   height="25px"
@@ -103,20 +108,28 @@ export default function TenderRecordTable() {
                     cx="12"
                     cy="12"
                     r="10"
-                    stroke={user?.recordedTenders.includes(tender.kode_tender) ? "#3CDB7F" : "#777"}
+                    stroke={
+                      user?.recordedTenders.includes(tender.kode_tender)
+                        ? "#3CDB7F"
+                        : "#777"
+                    }
                     strokeWidth="1.5"
                   ></circle>
                   <path
                     d="M8.5 12.5L10.5 14.5L15.5 9.5"
-                    stroke={user?.recordedTenders.includes(tender.kode_tender) ? "#FFFFFF" : "#777"}
+                    stroke={
+                      user?.recordedTenders.includes(tender.kode_tender)
+                        ? "#FFFFFF"
+                        : "#777"
+                    }
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   ></path>
                 </svg>
-                </td>
-              </tr>
-            ))}
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
