@@ -35,36 +35,36 @@ export default function LogoutButton() {
                 transform="rotate(180)"
                 className={isLoggingOut ? "opacity-50 pointer-events-none" : ""}
             >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                 id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                 {" "}
-                <g clip-path="url(#clip0_14_1899)">
+                <g clipPath="url(#clip0_14_1899)">
                     {" "}
                     <path
                     d="M29.666 27.032L34.999 32.335L29.666 37.698"
                     stroke="#ffffff"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     ></path>{" "}
                     <path
                     d="M34.999 32.335H13.667"
                     stroke="#ffffff"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     ></path>{" "}
                     <path
                     d="M32.333 53.666C44.1149 53.666 53.666 44.1149 53.666 32.333C53.666 20.5511 44.1149 11 32.333 11C20.5511 11 11 20.5511 11 32.333C11 44.1149 20.5511 53.666 32.333 53.666Z"
                     stroke="#ffffff"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     ></path>{" "}
                 </g>{" "}
                 <defs>

@@ -6,10 +6,11 @@ import InputComp from "./InputComp";
 import EditableItem from "./EditableItem";
 import useUserStore from "@/stores/user";
 import { useSession } from "next-auth/react";
+import useSWR from "swr";
 import toast from "react-hot-toast";
 
 import dummy from "@/utils/setting-dummy.json";
-import { type } from "os";
+import LoadingUI from "./LoadingUI";
 
 interface Config {
   penyelenggara_proyek: string[];
@@ -22,14 +23,20 @@ interface Config {
   kbli: null;
 }
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function SettingForm() {
   const { update } = useSession();
   const { user } = useUserStore((state) => ({
     user: state.user,
   }));
 
+  const { data: instansi, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/scrape/instansi`,
+    fetcher
+  );
+
   const [setting, setSetting] = useState<Config>(dummy);
-  const [instansi, setInstansi] = useState(["Provinsi DKI Jakarta"]);
 
   useEffect(() => {
     const getSetting = () => {
@@ -37,18 +44,7 @@ export default function SettingForm() {
         setSetting(user?.config);
       }
     };
-
-    const getInstansi = () => {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/scrape/instansi`, {
-        method: "GET",
-      }).then(async (response) => {
-        const { data } = await response.json();
-        setInstansi(data);
-      });
-    };
-
     getSetting();
-    getInstansi();
   }, [user]);
 
   function setData(
@@ -84,7 +80,7 @@ export default function SettingForm() {
     setSetting({ ...setting, [typeData]: tempArr });
   }
 
-  function updateConfig() {
+  async function updateConfig() {
     toast.promise(
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/config/${user?.id}`, {
         method: "PUT",
@@ -93,13 +89,15 @@ export default function SettingForm() {
         },
         body: JSON.stringify(setting),
       }).then(async (response) => {
-        const data = await response.json();
-        update({
-          user: {
-            ...user,
-            config: data.config,
-          },
-        });
+        if (response.ok && user?.id) {
+          const data = await response.json();
+          update({
+            user: {
+              ...user,
+              config: data.config,
+            },
+          });
+        }
       }),
       {
         loading: "Memperbarui config...",
@@ -108,6 +106,8 @@ export default function SettingForm() {
       }
     );
   }
+
+  if (isLoading) return <LoadingUI />;
 
   return (
     <div className="my-10 bg-grey p-5 w-full rounded-md ">
@@ -119,24 +119,24 @@ export default function SettingForm() {
             setData={setData}
             variant="select"
             data={{
-              options: instansi,
+              options: instansi.data,
               type: "penyelenggara_proyek",
             }}
           />
-          <p className="flex w-full py-2 gap-2">
+          <div className="flex w-full py-2 gap-2">
             {setting.penyelenggara_proyek.map((each, index) => (
-              <>
+              <div key={`penyelenggara_proyek-${index}`}>
                 {each !== "" ? (
                   <EditableItem
                     type="penyelenggara_proyek"
                     data={each}
-                    key={index}
+                    itemKey={index}
                     removeData={removeData}
                   />
                 ) : null}
-              </>
+              </div>
             ))}
-          </p>
+          </div>
         </li>
         <li>
           <h2 className="font-bold mb-2">Jenis Proyek</h2>
@@ -157,20 +157,20 @@ export default function SettingForm() {
               type: "jenis_proyek",
             }}
           />
-          <p className="flex w-full py-2 gap-2">
+          <div className="flex w-full py-2 gap-2">
             {setting.jenis_proyek.map((each, index) => (
-              <>
+              <div key={`jenis_proyek-${index}`}>
                 {each !== "" ? (
                   <EditableItem
                     type="jenis_proyek"
                     data={each}
-                    key={index}
+                    itemKey={index}
                     removeData={removeData}
                   />
                 ) : null}
-              </>
+              </div>
             ))}
-          </p>
+          </div>
         </li>
         <h2 className="font-bold mb-2">Nilai Proyek</h2>
         <div className="flex gap-10 justify-stretch">

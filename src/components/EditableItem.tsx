@@ -1,15 +1,17 @@
+'use client';
+
 /** @format */
 
 interface Props {
   data: string;
-  key: number;
+  itemKey: number;
   type: string;
   removeData: any;
 }
 
-export default function EditableItem({ data, key, type, removeData }: Props) {
+export default function EditableItem({ data, itemKey, type, removeData }: Props) {
   return (
-    <div className="px-4 py-2 rounded-full bg-[#CCBF9D] flex gap-2" key={key}>
+    <div className="px-4 py-2 rounded-full bg-[#CCBF9D] flex gap-2" key={itemKey}>
       {data}
       <button onClick={() => removeData(data, type)}>
         <svg

@@ -25,8 +25,9 @@ export default function InputComp({ variant, data, setData }: Props) {
         <select
           className="w-full p-2 mb-2"
           onChange={(e) => setData(e.target.value, data.type, true)}
+          defaultValue=""
         >
-          <option value="" disabled selected className="hidden">
+          <option value="" disabled className="hidden">
             Click Here
           </option>
 
@@ -42,7 +43,7 @@ export default function InputComp({ variant, data, setData }: Props) {
         <input
           className="w-full p-2 mb-2"
           type="text"
-          value={data.selected}
+          value={data.selected || ""}
           onChange={(e) => setData(e.target.value, data.type, false)}
         />
       );
@@ -51,7 +52,7 @@ export default function InputComp({ variant, data, setData }: Props) {
         <input
           className="w-full p-2 mb-2"
           type="text"
-          value={formatNumber(data.selected)}
+          value={data.selected ? formatNumber(data.selected) : ""}
           onChange={(e) => setDataNumber(e.target.value)}
         />
       );

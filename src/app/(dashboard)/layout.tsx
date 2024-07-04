@@ -27,8 +27,8 @@ export default function DashboardLayout({
         notification: session.user.notification,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+
+  }, [session, setUser]);
 
   return (
     <div>

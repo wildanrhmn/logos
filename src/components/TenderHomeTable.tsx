@@ -17,7 +17,7 @@ export default function TenderHomeTable() {
     setUser: state.setUser,
   }));
   const { data: tenders, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/scrape/data/${user?.id}`,
+    user ? `${process.env.NEXT_PUBLIC_API_URL}/scrape/data/${user?.id}` : null,
     fetcher
   );
 
