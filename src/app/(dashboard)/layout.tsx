@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import Header from "@/components/Header";
@@ -21,7 +23,8 @@ export default function DashboardLayout({
         username: session.user.username,
         archivedTenders: session.user.archive,
         recordedTenders: session.user.record,
-        config: session.user.config
+        config: session.user.config,
+        notification: session.user.notification,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

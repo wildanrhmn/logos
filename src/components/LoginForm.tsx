@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import Image from "next/image";
@@ -28,7 +30,7 @@ const LoginForm = () => {
 
     if (result.success) {
       toast.success(result.message);
-      
+
       const user = JSON.parse(JSON.stringify(result.user));
 
       setUser({
@@ -36,11 +38,11 @@ const LoginForm = () => {
         username: user.username,
         archivedTenders: user.archive,
         recordedTenders: user.record,
-        config: user.config
+        notification: user.notification,
+        config: user.config,
       });
 
       router.push("/home");
-      
     } else {
       return toast.error(result.message);
     }

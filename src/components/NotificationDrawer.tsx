@@ -14,19 +14,15 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/dropdown";
+import useUserStore from "@/stores/user";
+import { useSession } from "next-auth/react";
 
 interface Notification {
-  notification_id: string;
-  tender: {
-    tender_code: string;
-    tender_name: string;
-    tender_status: string;
-    tender_status_new: string;
-  };
-  description: string;
-  date: string;
-  time: string;
-  read: boolean;
+  id: String;
+  title: String;
+  message: String;
+  is_read: true;
+  date_added: String;
 }
 
 interface DrawerListProps {
@@ -41,17 +37,33 @@ export default function NotificationDrawer() {
     useNotificationStore();
   const [activeTab, setActiveTab] = useState<string>("All");
 
+  const { update } = useSession();
+  const { user } = useUserStore((state) => ({
+    user: state.user,
+  }));
+
   const markAllAsRead = () => {
-    const updatedNotifications = notifications.map((notification) => ({
-      ...notification,
-      read: true,
-    }));
-    setNotifications(updatedNotifications);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/notification/${user?.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    }).then(async (response) => {
+      const data = await response.json();
+      update({
+        user: {
+          ...user,
+          notification: data.notification,
+        },
+      });
+      setNotifications(data.notification);
+    });
   };
 
   useEffect(() => {
-    setNotifications(notificationData);
-  }, [setNotifications]);
+    setNotifications(user?.notification);
+  }, [user, setNotifications]);
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
@@ -124,19 +136,18 @@ function DrawerList({
         {notifications &&
           notifications
             ?.filter(
-              (notification) => activeTab === "All" || !notification.read
+              (notification) => activeTab === "All" || !notification.is_read
             )
-            .map((notification) => (
-              <div
-                key={notification.notification_id}
-                className="bg-primary/20 w-full p-3 mb-2"
-              >
+            .map((notification, index) => (
+              <div key={index} className="bg-primary/20 w-full p-3 mb-2">
                 <div className="flex items-start gap-3">
                   <div className="flex flex-col gap-2">
                     <h3 className="text-white text-sm sm:text-md">
-                      {`${notification.tender.tender_name} - ${notification.tender.tender_code}`}
+                      {notification.title}
                     </h3>
-                    <p className="text-white/60 text-xs sm:text-sm">{`${notification.description}, ${notification.tender.tender_status} > ${notification.tender.tender_status_new}`}</p>
+                    <p className="text-white/60 text-xs sm:text-sm">
+                      {notification.message}
+                    </p>
                     <div className="flex items-center gap-1">
                       <svg
                         width="14px"
@@ -162,10 +173,12 @@ function DrawerList({
                           ></path>{" "}
                         </g>
                       </svg>
-                      <span className="text-white/60 text-xs">{`${notification.date} - ${notification.time}`}</span>
+                      <span className="text-white/60 text-xs">
+                        {notification.date_added}
+                      </span>
                     </div>
                   </div>
-                  {!notification.read && (
+                  {!notification.is_read && (
                     <div className="p-2 rounded-full bg-tertiary/60" />
                   )}
                 </div>

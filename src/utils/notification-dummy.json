@@ -10,7 +10,7 @@
     "description": "Status Diperbarui",
     "date": "2024-07-16",
     "time": "12:00 PM",
-    "read": false
+    "is_read": false
   },
   {
     "notification_id": "2",
@@ -23,7 +23,7 @@
     "description": "Status Diperbarui",
     "date": "2024-07-16",
     "time": "12:00 PM",
-    "read": false
+    "is_read": false
   },
   {
     "notification_id": "3",
@@ -36,7 +36,7 @@
     "description": "Status Diperbarui",
     "date": "2024-07-16",
     "time": "12:00 PM",
-    "read": false
+    "is_read": false
   },
   {
     "notification_id": "4",
@@ -49,6 +49,6 @@
     "description": "Status Diperbarui",
     "date": "2024-07-16",
     "time": "12:00 PM",
-    "read": true
+    "is_read": true
   }
 ]
