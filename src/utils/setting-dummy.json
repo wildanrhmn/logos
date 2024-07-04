@@ -1,7 +1,10 @@
 {
   "penyelenggara_proyek": ["Kementrian Agama", "Kementrian Keuangan"],
   "jenis_proyek": ["Jasa Konsultansi Badan Usaha Non Konstruksi"],
-  "nilai_proyek": 15000000000,
+  "nilai_proyek": {
+    "min": 15000000000,
+    "max": 20000000000
+  },
   "hbu": null,
   "kbli": null
 }

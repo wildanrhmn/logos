@@ -9,11 +9,15 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
 import dummy from "@/utils/setting-dummy.json";
+import { type } from "os";
 
 interface Config {
   penyelenggara_proyek: string[];
   jenis_proyek: string[];
-  nilai_proyek: Number;
+  nilai_proyek: {
+    min: number;
+    max: number;
+  };
   hbu: null;
   kbli: null;
 }
@@ -49,16 +53,26 @@ export default function SettingForm() {
 
   function setData(
     inputData: string,
-    typeData: keyof Config,
+    typeData: keyof Config | "min" | "max",
     isArray: boolean
   ) {
     if (isArray) {
-      const arrData = setting[typeData] as string[];
+      const arrData = setting[typeData as keyof Config] as string[];
 
       arrData.push(inputData);
       setSetting({ ...setting, [typeData]: arrData });
     } else {
-      setSetting({ ...setting, [typeData]: inputData });
+      if (typeData === "max" || typeData === "min") {
+        setSetting({
+          ...setting,
+          nilai_proyek: {
+            ...setting.nilai_proyek,
+            [typeData]: parseInt(inputData),
+          },
+        });
+      } else {
+        setSetting({ ...setting, [typeData]: inputData });
+      }
     }
   }
 
@@ -158,16 +172,34 @@ export default function SettingForm() {
             ))}
           </p>
         </li>
+        <h2 className="font-bold mb-2">Nilai Proyek</h2>
+        <div className="flex gap-10 justify-stretch">
+          <li>
+            <h2 className="font-bold mb-2">Min</h2>
+            <InputComp
+              setData={setData}
+              variant="number"
+              data={{
+                selected: setting.nilai_proyek.min,
+                type: "min",
+              }}
+            />
+          </li>
+          <li>
+            <h2 className="font-bold mb-2">Max</h2>
+            <InputComp
+              setData={setData}
+              variant="number"
+              data={{
+                selected: setting.nilai_proyek.max,
+                type: "max",
+              }}
+            />
+          </li>
+        </div>
+
         <li>
-          <h2 className="font-bold mb-2">Nilai Proyek</h2>
-          <InputComp
-            setData={setData}
-            variant="number"
-            data={{ selected: setting.nilai_proyek, type: "nilai_proyek" }}
-          />
-        </li>
-        <li>
-          <h2 className="font-bold mb-2">HBU</h2>
+          <h2 className="font-bold mb-2">SBU</h2>
           <InputComp
             setData={setData}
             variant="text"

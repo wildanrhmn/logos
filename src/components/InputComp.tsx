@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 interface Props {
@@ -7,6 +9,16 @@ interface Props {
 }
 
 export default function InputComp({ variant, data, setData }: Props) {
+  const formatNumber = (number: any) => {
+    const parsed_number = number.toString();
+    return parsed_number.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
+  const setDataNumber = (value: string) => {
+    const parsed_value = parseInt(value.replace(/\./g, ""));
+    setData(parsed_value, data.type, false);
+  };
+
   switch (variant) {
     case "select":
       return (
@@ -38,9 +50,9 @@ export default function InputComp({ variant, data, setData }: Props) {
       return (
         <input
           className="w-full p-2 mb-2"
-          type="number"
-          value={data.selected}
-          onChange={(e) => setData(e.target.value, data.type, false)}
+          type="text"
+          value={formatNumber(data.selected)}
+          onChange={(e) => setDataNumber(e.target.value)}
         />
       );
     default:
