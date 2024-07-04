@@ -1,7 +1,7 @@
 /** @format */
 
 export interface IUser {
-  id: number;
+  id: string;
   username: string;
   archivedTenders: string[];
   recordedTenders: string[];

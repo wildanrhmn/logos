@@ -52,7 +52,7 @@ export default function InputComp({ variant, data, setData }: Props) {
         <input
           className="w-full p-2 mb-2"
           type="text"
-          value={data.selected ? formatNumber(data.selected) : ""}
+          value={data.selected ? formatNumber(data.selected) : "0"}
           onChange={(e) => setDataNumber(e.target.value)}
         />
       );

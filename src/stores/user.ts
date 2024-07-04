@@ -5,7 +5,7 @@ import { create } from "zustand";
 
 interface UserState {
   user: IUser | null;
-  setUser: (user: IUser) => void;
+  setUser: (user: IUser | null) => void;
   archiveTender: (kode_tender: string) => void;
   unarchiveTender: (kode_tender: string) => void;
   recordTender: (kode_tender: string) => void;
@@ -14,7 +14,7 @@ interface UserState {
 
 const useUserStore = create<UserState>((set, get) => ({
   user: null,
-  setUser: (user: IUser) => set({ user }),
+  setUser: (user: IUser | null) => set({ user }),
   archiveTender: (kode_tender: string) => {
     const user = get().user;
     if (user) {

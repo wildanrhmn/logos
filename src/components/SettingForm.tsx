@@ -8,7 +8,6 @@ import useUserStore from "@/stores/user";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import toast from "react-hot-toast";
-
 import dummy from "@/utils/setting-dummy.json";
 import LoadingUI from "./LoadingUI";
 
@@ -25,13 +24,22 @@ interface Config {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+const fetchConfig = async (userId: string) => {
+  const config = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/user/config/${userId}`
+  );
+  const configData = await config.json();
+  return configData.config;
+};
+
 export default function SettingForm() {
   const { update } = useSession();
-  const { user } = useUserStore((state) => ({
+  const { user, setUser } = useUserStore((state) => ({
     user: state.user,
+    setUser: state.setUser,
   }));
 
-  const { data: instansi, isLoading } = useSWR(
+  const { data: instansi, isLoading: isLoadingInstansi } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/scrape/instansi`,
     fetcher
   );
@@ -39,22 +47,22 @@ export default function SettingForm() {
   const [setting, setSetting] = useState<Config>(dummy);
 
   useEffect(() => {
-    const getSetting = () => {
+    const getSetting = async () => {
       if (user) {
-        setSetting(user?.config);
+        const config = await fetchConfig(user.id);
+        setSetting(config);
       }
     };
     getSetting();
   }, [user]);
 
-  function setData(
+  const setData = (
     inputData: string,
     typeData: keyof Config | "min" | "max",
     isArray: boolean
-  ) {
+  ) => {
     if (isArray) {
       const arrData = setting[typeData as keyof Config] as string[];
-
       arrData.push(inputData);
       setSetting({ ...setting, [typeData]: arrData });
     } else {
@@ -70,17 +78,16 @@ export default function SettingForm() {
         setSetting({ ...setting, [typeData]: inputData });
       }
     }
-  }
+  };
 
-  function removeData(inputData: string, typeData: keyof Config) {
+  const removeData = (inputData: string, typeData: keyof Config) => {
     const tempArr = setting[typeData] as string[];
     const indexValue = tempArr.indexOf(inputData);
-
     tempArr.splice(indexValue, 1);
     setSetting({ ...setting, [typeData]: tempArr });
-  }
+  };
 
-  async function updateConfig() {
+  const updateConfig = async () => {
     toast.promise(
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/config/${user?.id}`, {
         method: "PUT",
@@ -90,11 +97,15 @@ export default function SettingForm() {
         body: JSON.stringify(setting),
       }).then(async (response) => {
         if (response.ok && user?.id) {
-          const data = await response.json();
+          const config = await fetchConfig(user.id);
+          setUser({
+            ...user,
+            config: config,
+          });
           update({
             user: {
               ...user,
-              config: data.config,
+              config: config,
             },
           });
         }
@@ -105,9 +116,9 @@ export default function SettingForm() {
         error: "Gagal memperbarui config",
       }
     );
-  }
+  };
 
-  if (isLoading) return <LoadingUI />;
+  if (isLoadingInstansi) return <LoadingUI />;
 
   return (
     <div className="my-10 bg-grey p-5 w-full rounded-md ">
@@ -126,14 +137,14 @@ export default function SettingForm() {
           <div className="flex w-full py-2 gap-2">
             {setting.penyelenggara_proyek.map((each, index) => (
               <div key={`penyelenggara_proyek-${index}`}>
-                {each !== "" ? (
+                {each !== "" && (
                   <EditableItem
                     type="penyelenggara_proyek"
                     data={each}
                     itemKey={index}
                     removeData={removeData}
                   />
-                ) : null}
+                )}
               </div>
             ))}
           </div>
@@ -160,14 +171,14 @@ export default function SettingForm() {
           <div className="flex w-full py-2 gap-2">
             {setting.jenis_proyek.map((each, index) => (
               <div key={`jenis_proyek-${index}`}>
-                {each !== "" ? (
+                {each !== "" && (
                   <EditableItem
                     type="jenis_proyek"
                     data={each}
                     itemKey={index}
                     removeData={removeData}
                   />
-                ) : null}
+                )}
               </div>
             ))}
           </div>
@@ -217,7 +228,7 @@ export default function SettingForm() {
         <li>
           <button
             className="px-4 py-2 rounded-full bg-tertiary flex gap-2"
-            onClick={() => updateConfig()}
+            onClick={updateConfig}
           >
             Save
           </button>
