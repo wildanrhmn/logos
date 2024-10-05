@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
-import { SignInAction } from "@/lib/action";
 import useUserStore from "@/stores/user";
 
 export interface IFormLoginInput {
@@ -26,12 +25,22 @@ const LoginForm = () => {
   const setUser = useUserStore((state) => state.setUser);
 
   const onSubmit: SubmitHandler<IFormLoginInput> = async (data) => {
-    const result: any = await SignInAction(data);
+    // Simulating API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    if (result.success) {
-      toast.success(result.message);
+    // Dummy login logic
+    if (data.username === "demo" && data.password === "password") {
+      toast.success("Login successful");
 
-      const user = JSON.parse(JSON.stringify(result.user));
+      // Simulating user data
+      const user = {
+        _id: "123456",
+        username: data.username,
+        archive: [],
+        record: [],
+        notification: [],
+        config: {},
+      };
 
       setUser({
         id: user._id,
@@ -44,37 +53,39 @@ const LoginForm = () => {
 
       router.push("/home");
     } else {
-      return toast.error(result.message);
+      toast.error("Invalid credentials");
     }
     reset();
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      autoComplete="off"
-      className="w-full flex flex-col gap-3"
-    >
-      <InputField
-        type="text"
-        placeholder="Username"
-        error={errors.username}
-        icon="/profile.png"
-        register={register("username", {
-          required: true,
-          minLength: 3,
-          maxLength: 12,
-        })}
-      />
-      <InputField
-        type="password"
-        placeholder="Password"
-        error={errors.password}
-        icon="/lock.png"
-        register={register("password", { required: true, minLength: 5 })}
-      />
-      <SubmitButton isSubmitting={isSubmitting} />
-    </form>
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+        className="w-full flex flex-col gap-3"
+      >
+        <InputField
+          type="text"
+          placeholder="Username"
+          error={errors.username}
+          icon="/profile.png"
+          register={register("username", {
+            required: true,
+            minLength: 3,
+            maxLength: 12,
+          })}
+        />
+        <InputField
+          type="password"
+          placeholder="Password"
+          error={errors.password}
+          icon="/lock.png"
+          register={register("password", { required: true, minLength: 5 })}
+        />
+        <SubmitButton isSubmitting={isSubmitting} />
+      </form>
+    </>
   );
 };
 
@@ -98,7 +109,7 @@ const InputField = ({
         {error.type === "minLength" &&
           `${placeholder} must be at least 3 characters`}
         {error.type === "maxLength" &&
-          `${placeholder} must be at most 4 characters`}
+          `${placeholder} must be at most 12 characters`}
       </p>
     )}
     <div className="relative">

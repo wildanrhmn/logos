@@ -1,0 +1,239 @@
+[
+  {
+    "_id": { "$oid": "6700d6d6ea90d395b6928f22" },
+    "kode_tender": "18471333",
+    "nama_tender": "Belanja Bahan Bahan Lainnya RSUD Pakuhaji",
+    "jenis_pengadaan": "Pengadaan Barang",
+    "instansi": "Kab. Tangerang",
+    "satuan_kerja": "RSUD Pakuhaji",
+    "tahun_anggaran": "APBD 2024    ",
+    "nilai_hps_paket": "Rp. 502.169.562,00",
+    "lokasi_pengerjaan": "jl KH Sa'adullah no 88 Kel.Pakuhaji Kab.Tangerang - Tangerang (Kab.)",
+    "peserta_tender": "20 peserta",
+    "is_show": true,
+    "tanggal_pembuatan": "2024-10-05",
+    "anchor": "lpse.tangerangkab.go.id",
+    "kode_sbu": "N/A",
+    "kode_kbli": "N/A",
+    "tahapan_tender": [
+      {
+        "tahap": "Pengumuman Pascakualifikasi",
+        "mulai": "1 Oktober 2024 14:00",
+        "sampai": "7 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Download Dokumen Pemilihan",
+        "mulai": "1 Oktober 2024 15:00",
+        "sampai": "8 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Pemberian Penjelasan",
+        "mulai": "4 Oktober 2024 09:00",
+        "sampai": "4 Oktober 2024 10:00"
+      },
+      {
+        "tahap": "Upload Dokumen Penawaran",
+        "mulai": "4 Oktober 2024 11:00",
+        "sampai": "8 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Pembukaan Dokumen Penawaran",
+        "mulai": "8 Oktober 2024 16:01",
+        "sampai": "9 Oktober 2024 23:59"
+      },
+      {
+        "tahap": "Evaluasi Administrasi, Kualifikasi, Teknis, dan Harga",
+        "mulai": "8 Oktober 2024 16:30",
+        "sampai": "15 Oktober 2024 23:59"
+      },
+      {
+        "tahap": "Pembuktian Kualifikasi",
+        "mulai": "14 Oktober 2024 09:00",
+        "sampai": "15 Oktober 2024 23:59"
+      },
+      {
+        "tahap": "Penetapan Pemenang",
+        "mulai": "16 Oktober 2024 09:00",
+        "sampai": "16 Oktober 2024 12:59"
+      },
+      {
+        "tahap": "Pengumuman Pemenang",
+        "mulai": "16 Oktober 2024 13:00",
+        "sampai": "16 Oktober 2024 23:59"
+      },
+      {
+        "tahap": "Masa Sanggah",
+        "mulai": "17 Oktober 2024 08:00",
+        "sampai": "21 Oktober 2024 12:00"
+      },
+      {
+        "tahap": "Surat Penunjukan Penyedia Barang/Jasa",
+        "mulai": "23 Oktober 2024 09:00",
+        "sampai": "23 Oktober 2024 15:00"
+      },
+      {
+        "tahap": "Penandatanganan Kontrak",
+        "mulai": "25 Oktober 2024 09:00",
+        "sampai": "25 Oktober 2024 15:00"
+      }
+    ]
+  },
+  {
+    "_id": { "$oid": "6700d6d6ea90d395b6928f23" },
+    "kode_tender": "61302127",
+    "nama_tender": "Pemeliharaan Alat Pemberi Isyarat Lalu Lintas (APILL) Provinsi DKI Jakarta",
+    "jenis_pengadaan": "Pekerjaan Konstruksi",
+    "instansi": "Provinsi DKI Jakarta",
+    "satuan_kerja": "UNIT PENGELOLA SISTEM PENGENDALIAN LALU LINTAS",
+    "tahun_anggaran": "APBD 2024    ",
+    "nilai_hps_paket": "Rp. 1.128.349.854,00",
+    "lokasi_pengerjaan": "Gedung Dinas Teknis Abdul Muis Lt.16 Jl.Abdul Muis No.66 Gambir - Jakarta Pusat (Kota)",
+    "peserta_tender": "16 peserta",
+    "is_show": true,
+    "tanggal_pembuatan": "2024-10-05",
+    "anchor": "lpse.jakarta.go.id",
+    "kode_sbu": "IN011",
+    "kode_kbli": "43216",
+    "tahapan_tender": [
+      {
+        "tahap": "Pengumuman Pascakualifikasi",
+        "mulai": "30 September 2024 17:00",
+        "sampai": "5 Oktober 2024 17:00"
+      },
+      {
+        "tahap": "Download Dokumen Pemilihan",
+        "mulai": "30 September 2024 17:01",
+        "sampai": "7 Oktober 2024 15:30"
+      },
+      {
+        "tahap": "Pemberian Penjelasan",
+        "mulai": "3 Oktober 2024 07:30",
+        "sampai": "3 Oktober 2024 08:30"
+      },
+      {
+        "tahap": "Upload Dokumen Penawaran",
+        "mulai": "3 Oktober 2024 15:30",
+        "sampai": "7 Oktober 2024 15:30"
+      },
+      {
+        "tahap": "Pembukaan Dokumen Penawaran",
+        "mulai": "7 Oktober 2024 15:31",
+        "sampai": "9 Oktober 2024 14:00"
+      },
+      {
+        "tahap": "Evaluasi Administrasi, Kualifikasi, Teknis, dan Harga",
+        "mulai": "7 Oktober 2024 15:32",
+        "sampai": "9 Oktober 2024 14:00"
+      },
+      {
+        "tahap": "Pembuktian Kualifikasi",
+        "mulai": "9 Oktober 2024 08:00",
+        "sampai": "9 Oktober 2024 14:00"
+      },
+      {
+        "tahap": "Penetapan Pemenang",
+        "mulai": "9 Oktober 2024 14:01",
+        "sampai": "9 Oktober 2024 15:30"
+      },
+      {
+        "tahap": "Pengumuman Pemenang",
+        "mulai": "9 Oktober 2024 15:31",
+        "sampai": "9 Oktober 2024 15:59"
+      },
+      {
+        "tahap": "Masa Sanggah",
+        "mulai": "9 Oktober 2024 16:00",
+        "sampai": "14 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Surat Penunjukan Penyedia Barang/Jasa",
+        "mulai": "15 Oktober 2024 09:00",
+        "sampai": "15 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Penandatanganan Kontrak",
+        "mulai": "16 Oktober 2024 09:00",
+        "sampai": "16 Oktober 2024 16:00"
+      }
+    ]
+  },
+  {
+    "_id": { "$oid": "6700d6d6ea90d395b6928f24" },
+    "kode_tender": "26506066",
+    "nama_tender": "Rehab Interior Gedung MPP (Lanjutan)",
+    "jenis_pengadaan": "Pekerjaan Konstruksi",
+    "instansi": "Kota Tangerang",
+    "satuan_kerja": "DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU",
+    "tahun_anggaran": "APBD 2024    ",
+    "nilai_hps_paket": "Rp. 1.438.930.000,00",
+    "lokasi_pengerjaan": "DPMPTSP Kota Tangerang - Tangerang (Kota)",
+    "peserta_tender": "21 peserta",
+    "is_show": true,
+    "tanggal_pembuatan": "2024-10-05",
+    "anchor": "lpse.tangerangkota.go.id",
+    "kode_sbu": "PB004",
+    "kode_kbli": "43304",
+    "tahapan_tender": [
+      {
+        "tahap": "Pengumuman Pascakualifikasi",
+        "mulai": "3 Oktober 2024 15:00",
+        "sampai": "9 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Download Dokumen Pemilihan",
+        "mulai": "3 Oktober 2024 15:01",
+        "sampai": "10 Oktober 2024 15:00"
+      },
+      {
+        "tahap": "Pemberian Penjelasan",
+        "mulai": "7 Oktober 2024 10:00",
+        "sampai": "7 Oktober 2024 11:00"
+      },
+      {
+        "tahap": "Upload Dokumen Penawaran",
+        "mulai": "7 Oktober 2024 13:00",
+        "sampai": "10 Oktober 2024 15:00"
+      },
+      {
+        "tahap": "Pembukaan Dokumen Penawaran",
+        "mulai": "10 Oktober 2024 15:01",
+        "sampai": "22 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Evaluasi Administrasi, Kualifikasi, Teknis, dan Harga",
+        "mulai": "10 Oktober 2024 15:01",
+        "sampai": "22 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Pembuktian Kualifikasi",
+        "mulai": "16 Oktober 2024 08:00",
+        "sampai": "22 Oktober 2024 16:00"
+      },
+      {
+        "tahap": "Penetapan Pemenang",
+        "mulai": "23 Oktober 2024 08:00",
+        "sampai": "23 Oktober 2024 12:00"
+      },
+      {
+        "tahap": "Pengumuman Pemenang",
+        "mulai": "23 Oktober 2024 12:01",
+        "sampai": "23 Oktober 2024 14:00"
+      },
+      {
+        "tahap": "Masa Sanggah",
+        "mulai": "23 Oktober 2024 14:01",
+        "sampai": "28 Oktober 2024 14:30"
+      },
+      {
+        "tahap": "Surat Penunjukan Penyedia Barang/Jasa",
+        "mulai": "29 Oktober 2024 08:00",
+        "sampai": "4 November 2024 16:00"
+      },
+      {
+        "tahap": "Penandatanganan Kontrak",
+        "mulai": "30 Oktober 2024 08:00",
+        "sampai": "13 November 2024 16:00"
+      }
+    ]
+  }
+]

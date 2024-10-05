@@ -2,13 +2,15 @@
 
 "use client";
 
-import useSWR from "swr";
+// import useSWR from "swr";
 import useUserStore from "@/stores/user";
 import LoadingUI from "./LoadingUI";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
+import placeholderTenders from "@/utils/placeholder-tender.json";
+import EmptyState from "./EmptyState";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+// const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function TenderHomeTable() {
   const { update } = useSession();
@@ -16,34 +18,29 @@ export default function TenderHomeTable() {
     user: state.user,
     setUser: state.setUser,
   }));
-  const { data: tenders, isLoading } = useSWR(
-    user ? `${process.env.NEXT_PUBLIC_API_URL}/scrape/data/${user?.id}` : null,
-    fetcher
-  );
+  
+  // Using placeholder data instead of fetching
+  const tenders = placeholderTenders;
+  const isLoading = false;
 
   async function handleArchive(kode_tender: string) {
     toast.promise(
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/archive/${user?.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          archives: [...(user?.archivedTenders ?? []), kode_tender],
-        }),
-      }).then(async (response) => {
-        if (response.ok && user?.id) {
-          setUser({
-            ...user,
-            archivedTenders: [...(user?.archivedTenders ?? []), kode_tender],
-          });
-          update({
-            user: {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          if (user?.id) {
+            setUser({
               ...user,
               archivedTenders: [...(user?.archivedTenders ?? []), kode_tender],
-            },
-          });
-        }
+            });
+            update({
+              user: {
+                ...user,
+                archivedTenders: [...(user?.archivedTenders ?? []), kode_tender],
+              },
+            });
+          }
+          resolve(true);
+        }, 1000);
       }),
       {
         loading: "Menyimpan proyek ke arsip...",
@@ -65,17 +62,17 @@ export default function TenderHomeTable() {
           <th>Kode Kbli</th>
           <th>Kode Sbu</th>
           <th className="min-w-96">Lokasi</th>
-          <th>Akhir Pendaftaran</th>
+          <th>Tanggal Pembuatan</th>
           <th>HPS</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
-        {tenders &&
-          tenders?.data
-            ?.filter(
+        {tenders && tenders.length > 0 ? (
+          tenders
+            .filter(
               (tender: any) =>
-                !user?.archivedTenders.includes(tender.kode_tender)
+                !user?.archivedTenders?.includes(tender.kode_tender)
             )
             .map((tender: any, index: number) => (
               <tr key={index}>
@@ -89,18 +86,12 @@ export default function TenderHomeTable() {
                 <td className="whitespace-normal text-left">
                   {tender.lokasi_pengerjaan}
                 </td>
-                <td>
-                  {
-                    tender.tahapan_tender.find(
-                      (tahap: any) => tahap.tahap === "Pembuktian Kualifikasi"
-                    )?.sampai
-                  }
-                </td>
+                <td>{tender.tanggal_pembuatan}</td>
                 <td>{tender.nilai_hps_paket}</td>
                 <td>
                   <svg
                     fill={
-                      user?.archivedTenders.includes(tender.kode_tender)
+                      user?.archivedTenders?.includes(tender.kode_tender)
                         ? "#777777"
                         : "none"
                     }
@@ -121,7 +112,14 @@ export default function TenderHomeTable() {
                   </svg>
                 </td>
               </tr>
-            ))}
+            ))
+        ) : (
+          <tr>
+            <td colSpan={9}>
+              <EmptyState message="Tidak ada tender yang tersedia saat ini." />
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

@@ -2,57 +2,43 @@
 
 "use client";
 
-import useSWR from "swr";
+import { useState, useEffect } from "react";
 import useUserStore from "@/stores/user";
 import LoadingUI from "./LoadingUI";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import placeholderTenders from "@/utils/placeholder-tender.json";
+import EmptyState from "./EmptyState";
 
 export default function TenderRecordTable() {
   const { update } = useSession();
-  const { user, setUser } = useUserStore((state) => ({
-    user: state.user,
-    setUser: state.setUser,
-  }));
+  const { user, setUser, unrecordTender } = useUserStore();
+  const [recordedTenders, setRecordedTenders] = useState([]);
 
-  const { data, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/user/record/${user?.id}`,
-    fetcher
-  );
+  useEffect(() => {
+    // Filter placeholderTenders based on user's recordedTenders
+    const filteredTenders = placeholderTenders.filter(tender =>
+      user?.recordedTenders.includes(tender.kode_tender)
+    );
+    setRecordedTenders(filteredTenders as any);
+  }, [user?.recordedTenders]);
 
   async function handleUnrecord(kode_tender: string) {
-    const updatedRecords =
-      user?.recordedTenders?.filter(
-        (tender: string) => tender !== kode_tender
-      ) ?? [];
-
     toast.promise(
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/record/${user?.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          records: updatedRecords,
-        }),
-      }).then(async (response) => {
-        if (response.ok && user?.id) {
-          setUser({ ...user, recordedTenders: updatedRecords });
-          update({ user: { ...user, recordedTenders: updatedRecords } });
-        }
+      new Promise((resolve) => {
+        unrecordTender(kode_tender);
+        resolve(null);
       }),
       {
         loading: "Menghapus proyek dari rekaman...",
-        success: "Proyek berhasil dihapus",
-        error: "Gagal menghapus proyek",
+        success: "Proyek berhasil dihapus dari rekaman",
+        error: "Gagal menghapus proyek dari rekaman",
       }
     );
+    update({ user });
   }
 
-  if (isLoading) return <LoadingUI />;
-
+  if (!user) return <LoadingUI />;
   return (
     <table className="w-full overflow-scroll">
       <thead>
@@ -69,9 +55,9 @@ export default function TenderRecordTable() {
         </tr>
       </thead>
       <tbody>
-        {data &&
-          data.records.map((tender: any, index: number) => (
-            <tr key={index}>
+        {recordedTenders && recordedTenders.length > 0 ? (
+          recordedTenders.map((tender: any, index: number) => (
+            <tr key={tender.kode_tender}>
               <td>{index + 1}</td>
               <td className="whitespace-normal text-left">
                 {tender.nama_tender}
@@ -92,11 +78,7 @@ export default function TenderRecordTable() {
               <td>{tender.nilai_hps_paket}</td>
               <td>
                 <svg
-                  fill={
-                    user?.recordedTenders.includes(tender.kode_tender)
-                      ? "#3CDB7F"
-                      : "none"
-                  }
+                  fill="#3CDB7F"
                   className="cursor-pointer"
                   width="25px"
                   height="25px"
@@ -108,20 +90,12 @@ export default function TenderRecordTable() {
                     cx="12"
                     cy="12"
                     r="10"
-                    stroke={
-                      user?.recordedTenders.includes(tender.kode_tender)
-                        ? "#3CDB7F"
-                        : "#777"
-                    }
+                    stroke="#3CDB7F"
                     strokeWidth="1.5"
                   ></circle>
                   <path
                     d="M8.5 12.5L10.5 14.5L15.5 9.5"
-                    stroke={
-                      user?.recordedTenders.includes(tender.kode_tender)
-                        ? "#FFFFFF"
-                        : "#777"
-                    }
+                    stroke="#FFFFFF"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -129,7 +103,14 @@ export default function TenderRecordTable() {
                 </svg>
               </td>
             </tr>
-          ))}
+          ))
+        ) : (
+          <tr>
+            <td colSpan={9}>
+              <EmptyState message="Tidak ada tender yang direkam saat ini." />
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

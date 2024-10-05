@@ -6,20 +6,7 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const path = nextUrl.pathname;
-
-      if (isLoggedIn && path.includes("/login")) {
-        return Response.redirect(new URL("/home", nextUrl));
-      }
-      if (
-        !isLoggedIn &&
-        (path.includes("/home") ||
-          path.includes("/record") ||
-          path.includes("/archive"))
-      ) {
-        return Response.redirect(new URL("/login", nextUrl));
-      }
+      //You can add custom authorization logic here
       return true;
     },
   },

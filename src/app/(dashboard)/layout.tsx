@@ -7,14 +7,19 @@ import NotificationDrawer from "@/components/NotificationDrawer";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import useUserStore from "@/stores/user";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const { data: session } = useSession();
   const setUser = useUserStore((state) => state.setUser);
+  const { user } = useUserStore((state) => ({
+    user: state.user,
+  }));
 
   useEffect(() => {
     if (session?.user) {
@@ -29,6 +34,10 @@ export default function DashboardLayout({
     }
 
   }, [session, setUser]);
+
+  if (!user) {
+    router.push("/login");
+  }
 
   return (
     <div>

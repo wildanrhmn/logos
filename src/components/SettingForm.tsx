@@ -6,10 +6,8 @@ import InputComp from "./InputComp";
 import EditableItem from "./EditableItem";
 import useUserStore from "@/stores/user";
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
 import toast from "react-hot-toast";
 import dummy from "@/utils/setting-dummy.json";
-import LoadingUI from "./LoadingUI";
 
 interface Config {
   penyelenggara_proyek: string[];
@@ -22,27 +20,25 @@ interface Config {
   kbli: null;
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const dummyInstansi = [
+  "Kementerian Pekerjaan Umum dan Perumahan Rakyat",
+  "Kementerian Perhubungan",
+  "Kementerian Pendidikan dan Kebudayaan",
+  "Kementerian Kesehatan",
+  "Kementerian Pertahanan",
+  "Pemerintah Provinsi DKI Jakarta",
+  "Pemerintah Kota Surabaya",
+  "Pemerintah Kabupaten Bandung"
+];
 
 const fetchConfig = async (userId: string) => {
-  const config = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/user/config/${userId}`
-  );
-  const configData = await config.json();
-  return configData.config;
+  // Simulating API call with dummy data
+  return dummy;
 };
 
 export default function SettingForm() {
   const { update } = useSession();
-  const { user, setUser } = useUserStore((state) => ({
-    user: state.user,
-    setUser: state.setUser,
-  }));
-
-  const { data: instansi, isLoading: isLoadingInstansi } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/scrape/instansi`,
-    fetcher
-  );
+  const { user, setUser } = useUserStore();
 
   const [setting, setSetting] = useState<Config>(dummy);
 
@@ -89,26 +85,16 @@ export default function SettingForm() {
 
   const updateConfig = async () => {
     toast.promise(
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/config/${user?.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(setting),
-      }).then(async (response) => {
-        if (response.ok && user?.id) {
-          const config = await fetchConfig(user.id);
-          setUser({
-            ...user,
-            config: config,
-          });
-          update({
-            user: {
-              ...user,
-              config: config,
-            },
-          });
-        }
+      new Promise((resolve) => {
+        // Simulating API call
+        setTimeout(() => {
+          if (user) {
+            const updatedUser = { ...user, config: setting };
+            setUser(updatedUser);
+            update({ user: updatedUser });
+          }
+          resolve(true);
+        }, 1000);
       }),
       {
         loading: "Memperbarui config...",
@@ -117,8 +103,6 @@ export default function SettingForm() {
       }
     );
   };
-
-  if (isLoadingInstansi) return <LoadingUI />;
 
   return (
     <div className="my-10 bg-grey p-5 w-full rounded-md ">
@@ -130,7 +114,7 @@ export default function SettingForm() {
             setData={setData}
             variant="select"
             data={{
-              options: instansi.data,
+              options: dummyInstansi,
               type: "penyelenggara_proyek",
             }}
           />
