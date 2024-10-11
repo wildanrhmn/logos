@@ -23,12 +23,11 @@ This is a sophisticated tender management system designed to streamline the proc
 
 ## Getting Started
 
-1. Clone the repository
-2. Install dependencies:
+1. Install dependencies:
    ```
    npm install
    ```
-3. Set up environment variables:
+2. Set up environment variables:
    Create a `.env` file in the root directory and add the following:
    ```
    MONGO_URI=your_mongodb_connection_string
@@ -36,7 +35,7 @@ This is a sophisticated tender management system designed to streamline the proc
    NEXT_PUBLIC_API_URL=your_api_url
    AUTH_TRUST_HOST=true
    ```
-4. Run the development server:
+3. Run the development server:
    ```
    npm run dev
    ```
