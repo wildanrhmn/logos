@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a sophisticated tender management system designed to streamline the process of tracking, archiving, and managing tenders. Built with Next.js and TypeScript, this application provides a robust and user-friendly interface for businesses to efficiently handle their tender-related operations.
+This is a sophisticated tender management system designed to streamline the process of tracking, archiving, and managing tenders. Built with Next.js and TypeScript.
 
 ## Features
 
@@ -49,7 +49,3 @@ This is a sophisticated tender management system designed to streamline the proc
 ## Credentials
 
 To start using the app, you have to first set up your own database tables and credentials (Mongo Preffered), and Sign In. (See LoginForm.tsx for data needed).
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
