@@ -47,12 +47,6 @@ This is a sophisticated tender management system designed to streamline the proc
 - `src/stores/user.ts`: Manages user state using Zustand.
 - `@types/next-auth.d.ts`: Contains TypeScript definitions for NextAuth.
 
-## Dummy Login Credentials
-
-For testing purposes, you can use the following credentials in `src/components/LoginForm.tsx`:
-- Username: demo
-- Password: password
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
